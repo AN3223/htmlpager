@@ -1,0 +1,20 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+	OFS = FS = "\t"
+	split(whitelist, whitelist, " ")
+}
+
+$NF {
+	whitelisted = 0
+
+	for (element in whitelist) {
+		if (match($1, "/" whitelist[element] "$")) {
+			whitelisted = 1
+			break
+		}
+	}
+
+	if (whitelisted) {print $0}
+}
+

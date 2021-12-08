@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+# full list: https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references
+# clearly a full implementation is out of scope, but this should cover the most common stuff
+amp="
+s/&quot;/\"/g
+s/&amp;/\&/g
+s/&apos;/'/g
+s/&lt;/</g
+s/&gt;/>/g
+s/&nbsp;/ /g
+s/&copy;/©/g
+"
+esc='s|\\n||g ; s|\\t|\t|g'
+
+awk -F '\t' '$NF != "" && NF != 1 && $NF !~ /[a-z-]=/ {print $NF}' |
+	sed "$esc;$amp;a" | fold -s
+

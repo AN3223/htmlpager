@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+# XXX make ./emphasis optional
+#if [ -t 1 ]; then
+	#COLOR=1
+#fi
+# XXX optionally piping through uniq would be nice too
+
+xml2tsv < "$1" 2>/dev/null | ./elfilter -v whitelist='title p div span b i' |
+	./emphasis | ./tsv2txt | ${PAGER:-less}
+
