@@ -13,6 +13,6 @@ s/&copy;/©/g
 "
 esc='s|\\n||g ; s|\\t|\t|g'
 
-awk -F '\t' '$NF != "" && NF != 1 && $NF !~ /[a-z-]=/ {print $NF}' |
+awk -F '\t' '$NF && NF > 1 && $NF !~ /[a-z-]=/ { print $NF }' |
 	sed "$esc;$amp;a" | fold -s
 

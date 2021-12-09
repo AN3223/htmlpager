@@ -6,15 +6,11 @@ BEGIN {
 }
 
 $NF {
-	whitelisted = 0
-
 	for (element in whitelist) {
 		if (match($1, "/" whitelist[element] "$")) {
-			whitelisted = 1
+			print $0
 			break
 		}
 	}
-
-	if (whitelisted) {print $0}
 }
 
